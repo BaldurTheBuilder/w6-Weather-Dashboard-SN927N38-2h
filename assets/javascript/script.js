@@ -13,7 +13,7 @@ loadOurHistory();
 //this function actually retrieves the weather information based on our city selection.
 function getWeatherInformation(enteredCity) {
     //build our URL. Make sure it changes from the defaults to imperial.
-    var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + enteredCity + "&appid=" + APIKey + "&units=imperial";
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + enteredCity + "&appid=" + APIKey + "&units=imperial";
     //fetch based on our URL
     fetch(queryURL)
         .then(function(response) {
@@ -43,7 +43,7 @@ var displayWeatherAtCity = function(weatherData, websiteCard) {
 
 var getForecastAtCity = function(chosenLat,chosenLon) {
     //for 5-day forecast we need to convert to longitude/latitude
-    var queryURL = "http://api.openweathermap.org/data/2.5/forecast?lat=" +chosenLat + "&lon=" + chosenLon +"&appid="+ APIKey + "&units=imperial";
+    var queryURL = "https://api.openweathermap.org/data/2.5/forecast?lat=" +chosenLat + "&lon=" + chosenLon +"&appid="+ APIKey + "&units=imperial";
     fetch(queryURL)
         .then(function(response) {
             return response.json();
