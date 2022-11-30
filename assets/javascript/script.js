@@ -4,8 +4,11 @@ var searchButton = $("#submit-button");
 var ourForm = $("#city-selection-form");
 var currentWeather = $("#current-weather");
 var fiveDayForecast = $("#5day");
+var ourHistorySection = $('#history');
 var cityLatitude;
 var cityLongitude;
+
+loadOurHistory();
 
 //this function actually retrieves the weather information based on our city selection.
 function getWeatherInformation(enteredCity) {
@@ -17,7 +20,6 @@ function getWeatherInformation(enteredCity) {
             return response.json();
         })
         .then(function(data) {
-            console.log(data);
             //storing latitude and longitude for use in the 5-day forecast
             cityLatitude = data.coord.lat;
             cityLongitude = data.coord.lon;
@@ -55,6 +57,7 @@ var getForecastAtCity = function(chosenLat,chosenLon) {
 //WHEN I search for a city I am presented with future conditions for that city
 //WHEN I view the future forecast, I see a 5-day forecast with dates, an icon representation of weather conditions, the temperature, the wind speed, and the humidity.
 var displayForecastAtCity = function(forecastData, websiteSection){
+    websiteSection.empty();
     var titleEl = $('<h3>');
     titleEl.attr('class','col-12')
     titleEl.text("5-day Forecast");
@@ -85,12 +88,66 @@ var displayForecastAtCity = function(forecastData, websiteSection){
     }
 }
 
+//WHEN I search for a city that city is added to the search history
+var saveToLocalStorage = function(currentCityName) {
+    //we are going to save ten fields in local storage.
+    //NOTE: we're leaving it to the user to make sure they enter a city and it has correct grammar.
+    //when the user enters a name, we first check to see if the name is already in local storage.
+    let currentlyStored = [];
+    for (let index = 0; index < 10; index++) {
+        currentlyStored[index] = localStorage.getItem(index);
+        //first we see if the current location has storage. If it's empty, we can store the name.
+        if(!currentlyStored[index]) {
+            localStorage.setItem(index, currentCityName);
+            break
+        }
+        //else, if the current storage is what the user just entered, we do nothing and leave since we don't need to repeat names.
+        else if(currentCityName == currentlyStored[index]) {
+            break
+        }
+        //lastly, if we reach the end of the array and it's full, we need to shift everything over and replace index 0.
+        else if(index == 9) {
+            for (let innerLoop = 1; innerLoop <10; innerLoop++) {
+                localStorage.setItem(innerLoop, currentlyStored[innerLoop-1]);
+            }
+            localStorage.setItem(0,currentCityName);
+        }
+    }
+}
+
+function loadOurHistory() {
+    for (let index = 0; index < 10; index++) {
+        var savedInStorage = localStorage.getItem(index);
+        if(savedInStorage) {
+            var historyItem = $('<button>');
+            historyItem.attr('class','btn btn-secondary');
+            historyItem.attr('id', savedInStorage);
+            historyItem.text(savedInStorage);
+            ourHistorySection.append(historyItem);
+        }
+        else {
+            break
+        }
+    }
+}
+
+
+
 //when the user clicks the submit button, we read their selected city and get the weather for that location.
 var handleCitySelection = function (event) {
     event.preventDefault();
-    var selectedName = chosenCity.val();
-    getWeatherInformation(selectedName);
-    //get 5 day forecast
+    //if we pushed the submit button
+    if(event.originalEvent.submitter.id == "submit-button") {
+        var selectedName = chosenCity.val();
+        saveToLocalStorage(selectedName);
+        getWeatherInformation(selectedName);
+    }
+    //WHEN I click on a city in the search history I am again presented with current and future conditions for that city
+    else {
+        var selectedName = event.originalEvent.submitter.id;
+        saveToLocalStorage(selectedName);
+        getWeatherInformation(selectedName);
+    }
 }
 
 ourForm.on('submit', handleCitySelection);
@@ -98,8 +155,4 @@ ourForm.on('submit', handleCitySelection);
 
 
 
-
-//WHEN I search for a city that city is added to the search history
-
-//WHEN I click on a city in the search history I am again presented with current and future conditions for that city
 
