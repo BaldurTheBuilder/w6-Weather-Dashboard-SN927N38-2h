@@ -11,32 +11,87 @@
 </head>
 
 <body>
-    <header class="jumbotron jumbotron-fluid custom-jumbotron">
+    <header class="jumbotron jumbotron-fluid bg-primary">
         <h1 class="">Weather Dashboard</h1>
     </header>
 
     <div class="container">
-        <div class="row justify-content-center">
+        <div class="row justify-content-between">
             <div class="col-3">
                 <h3>Search for a City:</h3>
-                <!-- search text field -->
-                <!-- search button -->
-                <!-- list of example city buttons, including: Atlanta, Denver, Seattle, San Francisco, Orlando, New York, Chicago and Austin. -->
+                <!-- GIVEN a weather dashboard with form inputs -->
+                <form id="city-selection-form">
+                    <div class="form-group">
+                      <input type="text" class="form-control" id="entered-city-name" placeholder="Enter city here">
+                    </div>
+                    <button type="submit" id="submit-button" class="btn btn-primary col-12">Search</button>
+                    <div class="btn-group-vertical col-12 p-2" id="history" role="group" aria-label="Basic example">
+                        <!-- this is where our user's previous searches go. -->
+                        <button type="button" class="btn btn-secondary">Example previous search</button>
+                        <button type="button" class="btn btn-secondary">Example previous search</button>
+                      </div>
+                  </form>
             </div>
-
-            <div class="col-9">
+            
+            <div class="col-8">
                 <h3>this is where the city information should go</h3>
 
                 <!-- section where our current weather goes -->
                 <!-- reminder: needs fields for city, date, temp, wind, humidity, and an icon for weather. -->
-                <div>
-
-                </div>
+                <div class="row justify-content-center">
+                    <div class="col-12 border border-primary m-2" id="current-weather">
+                        <h3>City and Date</h3>
+                        <p>icon</p>
+                        <p>temp</p>
+                        <p>wind</p>
+                        <p>humidity</p>
+                    </div>
 
                 <!-- section where our 5-day forecast goes -->
                 <!-- reminder: we want a title (5-day forecast), with each tile showing date, temp, wind, humidity, and an icon. -->
-                <div>
+                <div class="row justify-content-center" id="five-day-forcast">
+                    <div class="col-12 ">
+                        <h3>5-day Forecast</h3>
+                    </div>
+                    <div class="col-2 border border-primary m-2 bg-light" >
+                        <h3>date</h3>
+                        <p>icon</p>
+                        <p>temp</p>
+                        <p>wind</p>
+                        <p>humidity</p>
+                    </div>
 
+                    <div class="col-2 border border-primary m-2 bg-light">
+                        <h3>date</h3>
+                        <p>icon</p>
+                        <p>temp</p>
+                        <p>wind</p>
+                        <p>humidity</p>
+                    </div>
+
+                    <div class="col-2 border border-primary m-2 bg-light">
+                        <h3>date</h3>
+                        <p>icon</p>
+                        <p>temp</p>
+                        <p>wind</p>
+                        <p>humidity</p>
+                    </div>
+
+                    <div class="col-2 border border-primary m-2 bg-light">
+                        <h3>date</h3>
+                        <p>icon</p>
+                        <p>temp</p>
+                        <p>wind</p>
+                        <p>humidity</p>
+                    </div>
+
+                    <div class="col-2 border border-primary m-2 bg-light">
+                        <h3>date</h3>
+                        <p>icon</p>
+                        <p>temp</p>
+                        <p>wind</p>
+                        <p>humidity</p>
+                    </div>
                 </div>
             </div>
         </div>
