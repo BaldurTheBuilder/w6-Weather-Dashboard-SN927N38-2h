@@ -10,7 +10,7 @@
     <title>Weather Dashboard</title>
 </head>
 
-<body>
+<body class="bg-myFavoriteBg">
     <header class="jumbotron jumbotron-fluid bg-primary">
         <h1 class="">Weather Dashboard</h1>
     </header>
@@ -34,17 +34,15 @@
             </div>
             
             <div class="col-8">
-                <h3>this is where the city information should go</h3>
-
                 <!-- section where our current weather goes -->
                 <!-- reminder: needs fields for city, date, temp, wind, humidity, and an icon for weather. -->
                 <div class="row justify-content-center">
-                    <div class="col-12 border border-primary m-2" id="current-weather">
-                        <h3>City and Date</h3>
-                        <p>icon</p>
-                        <p>temp</p>
-                        <p>wind</p>
-                        <p>humidity</p>
+                    <div class="col-12 border border-primary m-2 text-white bg-dark" id="current-weather">
+                        <h3></h3>
+                        <img src="" alt="">
+                        <p></p>
+                        <p></p>
+                        <p></p>
                     </div>
 
                 <!-- section where our 5-day forecast goes -->
@@ -54,40 +52,40 @@
                         <h3>5-day Forecast</h3>
                     </div>
                     <div class="col-2 border border-primary m-2 bg-light" >
-                        <h3>date</h3>
-                        <p>icon</p>
+                        <h4>date</h4>
+                        <img src="" alt="icon">
                         <p>temp</p>
                         <p>wind</p>
                         <p>humidity</p>
                     </div>
 
                     <div class="col-2 border border-primary m-2 bg-light">
-                        <h3>date</h3>
-                        <p>icon</p>
+                        <h4>date</h4>
+                        <img src="" alt="icon">
                         <p>temp</p>
                         <p>wind</p>
                         <p>humidity</p>
                     </div>
 
                     <div class="col-2 border border-primary m-2 bg-light">
-                        <h3>date</h3>
-                        <p>icon</p>
+                        <h4>date</h4>
+                        <img src="" alt="icon">
                         <p>temp</p>
                         <p>wind</p>
                         <p>humidity</p>
                     </div>
 
                     <div class="col-2 border border-primary m-2 bg-light">
-                        <h3>date</h3>
-                        <p>icon</p>
+                        <h4>date</h4>
+                        <img src="" alt="icon">
                         <p>temp</p>
                         <p>wind</p>
                         <p>humidity</p>
                     </div>
 
                     <div class="col-2 border border-primary m-2 bg-light">
-                        <h3>date</h3>
-                        <p>icon</p>
+                        <h4>date</h4>
+                        <img src="" alt="icon">
                         <p>temp</p>
                         <p>wind</p>
                         <p>humidity</p>
@@ -100,6 +98,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
     <script src="./assets/javascript/script.js"></script>
 </body>
 </html>
