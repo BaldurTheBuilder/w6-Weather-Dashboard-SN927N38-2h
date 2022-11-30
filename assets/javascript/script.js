@@ -3,7 +3,7 @@ var chosenCity = $("#entered-city-name");
 var searchButton = $("#submit-button");
 var ourForm = $("#city-selection-form");
 var currentWeather = $("#current-weather");
-var fiveDayForecast = $("#five-day-forecast");
+var fiveDayForecast = $("#5day");
 var cityLatitude;
 var cityLongitude;
 
@@ -23,10 +23,12 @@ function getWeatherInformation(enteredCity) {
             cityLongitude = data.coord.lon;
             //display our data
             displayWeatherAtCity(data, currentWeather);
+            getForecastAtCity(cityLatitude,cityLongitude);
         })
 }
 
 //WHEN I search for a city I am presented with current conditions for that city
+//WHEN I view current city weather, I see the city name, the date, an icon representing weather conditions; the temp, humidity, and wind speed.
 var displayWeatherAtCity = function(weatherData, websiteCard) {
     //date,icon,temp,wind,humidity
     websiteCard.children().eq(0).text(weatherData.name + " (" +  dayjs().format("MM-DD-YYYY") +")");
@@ -37,12 +39,51 @@ var displayWeatherAtCity = function(weatherData, websiteCard) {
 
 }
 
-var displayForecastAtCity = function() {
+var getForecastAtCity = function(chosenLat,chosenLon) {
     //for 5-day forecast we need to convert to longitude/latitude
-    
+    var queryURL = "http://api.openweathermap.org/data/2.5/forecast?lat=" +chosenLat + "&lon=" + chosenLon +"&appid="+ APIKey + "&units=imperial";
+    fetch(queryURL)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            // console.log(data);
+            displayForecastAtCity(data, fiveDayForecast);
+        })
 }
 
+//WHEN I search for a city I am presented with future conditions for that city
+//WHEN I view the future forecast, I see a 5-day forecast with dates, an icon representation of weather conditions, the temperature, the wind speed, and the humidity.
+var displayForecastAtCity = function(forecastData, websiteSection){
+    var titleEl = $('<h3>');
+    titleEl.attr('class','col-12')
+    titleEl.text("5-day Forecast");
+    websiteSection.append(titleEl);
 
+    for (let index = 0; index < 5; index++) {
+        var newDay = $('<div>');  
+        newDay.attr('class', 'col-2 border border-primary m-2 bg-light');
+
+        var dateEl = $('<p>');
+        var iconEl = $('<img>');
+        var tempEl = $('<p>');
+        var windEl = $('<p>');
+        var humidityEl = $('<p>');
+
+        dateEl.text(" (" +  dayjs.unix(forecastData.list[index*8].dt).format("MM-DD-YYYY") +")");
+        iconEl.attr("src", "https://openweathermap.org/img/w/" + forecastData.list[index*8].weather[0].icon + ".png");
+        tempEl.text("Temp: " + forecastData.list[index*8].main.temp + " °F");
+        windEl.text("Wind: " + forecastData.list[index*8].wind.speed + " MPH");
+        humidityEl.text("Humidity: " + forecastData.list[index*8].main.humidity + " %");
+            
+        websiteSection.append(newDay);
+        newDay.append(dateEl);
+        newDay.append(iconEl);
+        newDay.append(tempEl);
+        newDay.append(windEl);
+        newDay.append(humidityEl);
+    }
+}
 
 //when the user clicks the submit button, we read their selected city and get the weather for that location.
 var handleCitySelection = function (event) {
@@ -56,13 +97,9 @@ ourForm.on('submit', handleCitySelection);
 
 
 
-//WHEN I search for a city I am presented with future conditions for that city
+
 
 //WHEN I search for a city that city is added to the search history
-
-//WHEN I view current city weather, I see the city name, the date, an icon representing weather conditions; the temp, humidity, and wind speed.
-
-//WHEN I view the future forecast, I see a 5-day forecast with dates, an icon representation of weather conditions, the temperature, the wind speed, and the humidity.
 
 //WHEN I click on a city in the search history I am again presented with current and future conditions for that city
 
